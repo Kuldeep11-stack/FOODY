@@ -2,7 +2,7 @@ import React from "react";
 
 const Testimonials = () => {
   return (
-    <div className="section-container flex flex-col md:flex-row items-center justify-between gap-12">
+    <div className="section-container  flex flex-col md:flex-row items-center justify-between gap-12">
       <div className="md:w-1/2">
         <img src="/images/home/testimonials/testimonials.png" alt="" />
       </div>
