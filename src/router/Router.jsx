@@ -3,11 +3,14 @@ import Main from "../layout/Main";
 import Home from "../public/home/Home";
 import Menu from "../public/shop/Menu";
 import Signup from "../components/Signup";
+import PrivateRouter from "../PrivateRouter/PrivateRouter";
+import UpdateProfile from "../public/dashboard/UpdateProfile";
 
 const router = createBrowserRouter([
     {
       path: "/",
-      element: <Main/>,
+     element: <Main/> ,
+      
       children:[
         {
             path:'/',
@@ -17,6 +20,10 @@ const router = createBrowserRouter([
           path:'/menu',
           element:<Menu/>
         },
+        {
+          path:'/update-profile',
+          element: <UpdateProfile/>
+        }
        
       ]
     },

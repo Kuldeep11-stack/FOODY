@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaFacebook, FaGithub, FaGoogle, FaInstagram } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form"
 import Modal from "./Modal";
+import { AuthContext } from "../contexts/AuthProvider";
 
 const Signup = () => {
     const {
@@ -11,8 +12,28 @@ const Signup = () => {
         watch,
         formState: { errors },
       } = useForm()
+      const {createUser , login} = useContext(AuthContext);
 
-      const onSubmit = (data) => console.log(data)
+      const location = useLocation();
+
+      const navigate = useNavigate();
+
+      const from = location.state?.from?.pathname || "/";
+      const onSubmit = (data) => {
+        const email = data.email;
+        const password  = data.password;
+
+        createUser(email,password).then((result)=>{
+          const user = result.user;
+
+          alert("Account creation Succesfull");
+
+          document.getElementById('my_modal_5').close();
+          navigate(from,{replace: true})
+        }).catch((error)=>{
+          console.log(error);
+        })
+      }
   return (
    
      <div className="max-wd-md bg-white w-full mx-auto flex items-center justify-center my-20 ">
@@ -58,7 +79,7 @@ const Signup = () => {
           <p className="text-center my-2">
              Have an account?{" "}
             <button onClick={()=>document.getElementById('my_modal_5').showModal()}  className="underline text-red ml-1">
-              Login
+              Sign Up
             </button>
             <Modal/>
           </p>

@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "/logo.png";
 import { FaRegUser } from "react-icons/fa";
 import Modal from "./Modal";
+import { AuthContext } from "../contexts/AuthProvider";
+import Profile from "./Profile";
 
 const Navbar = () => {
     const [isSticky,setSticky] = useState(false);
+
+    const {user}  = useContext(AuthContext);
+    console.log(user);
     useEffect(()=>{
         const handlescroll = () =>{
             const offset = window.scrollY;
@@ -136,9 +141,11 @@ const Navbar = () => {
               </span>
             </div>
           </div>
-          <button className="btn bg-green text-white rounded-full px-5 flex items-center justify-center gap-2" onClick={()=>document.getElementById('my_modal_5').showModal()} >
-            <FaRegUser size={15} /> Login
-          </button>
+         {
+          user? <Profile user={user}/>:  <button className="btn bg-green text-white rounded-full px-5 flex items-center justify-center gap-2" onClick={()=>document.getElementById('my_modal_5').showModal()} >
+          <FaRegUser size={15} /> Login
+        </button>
+         }
           <Modal/>
         </div>
       </div>
